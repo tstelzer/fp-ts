@@ -636,10 +636,10 @@ Unfolds a record into a list of key/value pairs
 
 ```ts
 export function toUnfoldable<F extends URIS>(
-  unfoldable: Unfoldable1<F>
+  U: Unfoldable1<F>
 ): <K extends string, A>(r: ReadonlyRecord<K, A>) => Kind<F, readonly [K, A]>
 export function toUnfoldable<F>(
-  unfoldable: Unfoldable<F>
+  U: Unfoldable<F>
 ): <K extends string, A>(r: ReadonlyRecord<K, A>) => HKT<F, readonly [K, A]> { ... }
 ```
 

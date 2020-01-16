@@ -29,6 +29,7 @@ Added in v2.5.0
 - [getUnionMonoid (function)](#getunionmonoid-function)
 - [insert (function)](#insert-function)
 - [intersection (function)](#intersection-function)
+- [isSubset (function)](#issubset-function)
 - [map (function)](#map-function)
 - [partition (function)](#partition-function)
 - [partitionMap (function)](#partitionmap-function)
@@ -37,7 +38,6 @@ Added in v2.5.0
 - [separate (function)](#separate-function)
 - [singleton (function)](#singleton-function)
 - [some (function)](#some-function)
-- [subset (function)](#subset-function)
 - [toReadonlyArray (function)](#toreadonlyarray-function)
 - [toSet (function)](#toset-function)
 - [union (function)](#union-function)
@@ -234,6 +234,18 @@ export function intersection<A>(E: Eq<A>): (set: ReadonlySet<A>, y: ReadonlySet<
 
 Added in v2.5.0
 
+# isSubset (function)
+
+`true` if and only if every element in the first set is an element of the second set
+
+**Signature**
+
+```ts
+export function isSubset<A>(E: Eq<A>): (x: ReadonlySet<A>, y: ReadonlySet<A>) => boolean { ... }
+```
+
+Added in v2.5.0
+
 # map (function)
 
 Projects a Set through a function
@@ -327,18 +339,6 @@ Added in v2.5.0
 
 ```ts
 export function some<A>(predicate: Predicate<A>): (set: ReadonlySet<A>) => boolean { ... }
-```
-
-Added in v2.5.0
-
-# subset (function)
-
-`true` if and only if every element in the first set is an element of the second set
-
-**Signature**
-
-```ts
-export function subset<A>(E: Eq<A>): (x: ReadonlySet<A>, y: ReadonlySet<A>) => boolean { ... }
 ```
 
 Added in v2.5.0
