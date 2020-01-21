@@ -18,32 +18,31 @@ Added in v2.0.0
 - [URI (type alias)](#uri-type-alias)
 - [URI (constant)](#uri-constant)
 - [cons (constant)](#cons-constant)
-- [filterWithIndex (constant)](#filterwithindex-constant)
-- [fold (constant)](#fold-constant)
-- [fromArray (constant)](#fromarray-constant)
+- [copy (constant)](#copy-constant)
 - [getEq (constant)](#geteq-constant)
-- [getSemigroup (constant)](#getsemigroup-constant)
 - [getShow (constant)](#getshow-constant)
-- [groupBy (constant)](#groupby-constant)
-- [groupSort (constant)](#groupsort-constant)
-- [head (constant)](#head-constant)
-- [init (constant)](#init-constant)
-- [insertAt (constant)](#insertat-constant)
-- [last (constant)](#last-constant)
-- [max (constant)](#max-constant)
-- [min (constant)](#min-constant)
-- [modifyAt (constant)](#modifyat-constant)
 - [nonEmptyArray (constant)](#nonemptyarray-constant)
 - [of (constant)](#of-constant)
 - [reverse (constant)](#reverse-constant)
 - [snoc (constant)](#snoc-constant)
-- [sort (constant)](#sort-constant)
-- [tail (constant)](#tail-constant)
-- [updateAt (constant)](#updateat-constant)
 - [concat (function)](#concat-function)
-- [copy (function)](#copy-function)
 - [filter (function)](#filter-function)
+- [filterWithIndex (function)](#filterwithindex-function)
+- [fromArray (function)](#fromarray-function)
+- [getSemigroup (function)](#getsemigroup-function)
 - [group (function)](#group-function)
+- [groupBy (function)](#groupby-function)
+- [groupSort (function)](#groupsort-function)
+- [head (function)](#head-function)
+- [init (function)](#init-function)
+- [insertAt (function)](#insertat-function)
+- [last (function)](#last-function)
+- [max (function)](#max-function)
+- [min (function)](#min-function)
+- [modifyAt (function)](#modifyat-function)
+- [sort (function)](#sort-function)
+- [tail (function)](#tail-function)
+- [updateAt (function)](#updateat-function)
 - [ap (export)](#ap-export)
 - [apFirst (export)](#apfirst-export)
 - [apSecond (export)](#apsecond-export)
@@ -115,36 +114,12 @@ assert.deepStrictEqual(cons(1, [2, 3, 4]), [1, 2, 3, 4])
 
 Added in v2.0.0
 
-# filterWithIndex (constant)
+# copy (constant)
 
 **Signature**
 
 ```ts
-export const filterWithIndex: <A>(
-  predicate: (i: number, a: A) => boolean
-) => (nea: NonEmptyArray<A>) => Option<NonEmptyArray<A>> = ...
-```
-
-Added in v2.0.0
-
-# fold (constant)
-
-**Signature**
-
-```ts
-export const fold: <A>(S: Semigroup<A>) => (fa: NonEmptyArray<A>) => A = ...
-```
-
-Added in v2.5.0
-
-# fromArray (constant)
-
-Builds a `NonEmptyArray` from an `Array` returning `none` if `as` is an empty array
-
-**Signature**
-
-```ts
-export const fromArray: <A>(as: Array<A>) => Option<NonEmptyArray<A>> = ...
+export const copy: <A>(nea: NonEmptyArray<A>) => NonEmptyArray<A> = ...
 ```
 
 Added in v2.0.0
@@ -170,158 +145,12 @@ assert.strictEqual(E.equals(cons(1, [2]), [1, 3]), false)
 
 Added in v2.0.0
 
-# getSemigroup (constant)
-
-Builds a `Semigroup` instance for `NonEmptyArray`
-
-**Signature**
-
-```ts
-export const getSemigroup: <A = ...
-```
-
-Added in v2.0.0
-
 # getShow (constant)
 
 **Signature**
 
 ```ts
 export const getShow: <A>(S: Show<A>) => Show<NonEmptyArray<A>> = ...
-```
-
-Added in v2.0.0
-
-# groupBy (constant)
-
-Splits an array into sub-non-empty-arrays stored in an object, based on the result of calling a `string`-returning
-function on each element, and grouping the results according to values returned
-
-**Signature**
-
-```ts
-export const groupBy: <A>(
-  f: (a: A) => string
-) => (as: Array<A>) => Record<string, NonEmptyArray<A>> = ...
-```
-
-**Example**
-
-```ts
-import { cons, groupBy } from 'fp-ts/lib/NonEmptyArray'
-
-assert.deepStrictEqual(groupBy((s: string) => String(s.length))(['foo', 'bar', 'foobar']), {
-  '3': cons('foo', ['bar']),
-  '6': cons('foobar', [])
-})
-```
-
-Added in v2.0.0
-
-# groupSort (constant)
-
-Sort and then group the elements of an array into non empty arrays.
-
-**Signature**
-
-```ts
-export const groupSort: <A>(O: Ord<A>) => (as: Array<A>) => Array<NonEmptyArray<A>> = ...
-```
-
-**Example**
-
-```ts
-import { cons, groupSort } from 'fp-ts/lib/NonEmptyArray'
-import { ordNumber } from 'fp-ts/lib/Ord'
-
-assert.deepStrictEqual(groupSort(ordNumber)([1, 2, 1, 1]), [cons(1, [1, 1]), cons(2, [])])
-```
-
-Added in v2.0.0
-
-# head (constant)
-
-**Signature**
-
-```ts
-export const head: <A>(nea: NonEmptyArray<A>) => A = ...
-```
-
-Added in v2.0.0
-
-# init (constant)
-
-Get all but the last element of a non empty array, creating a new array.
-
-**Signature**
-
-```ts
-export const init: <A>(nea: NonEmptyArray<A>) => Array<A> = ...
-```
-
-**Example**
-
-```ts
-import { init } from 'fp-ts/lib/NonEmptyArray'
-
-assert.deepStrictEqual(init([1, 2, 3]), [1, 2])
-assert.deepStrictEqual(init([1]), [])
-```
-
-Added in v2.2.0
-
-# insertAt (constant)
-
-**Signature**
-
-```ts
-export const insertAt: <A>(
-  i: number,
-  a: A
-) => (nea: NonEmptyArray<A>) => Option<NonEmptyArray<A>> = ...
-```
-
-Added in v2.0.0
-
-# last (constant)
-
-**Signature**
-
-```ts
-export const last: <A>(nea: NonEmptyArray<A>) => A = ...
-```
-
-Added in v2.0.0
-
-# max (constant)
-
-**Signature**
-
-```ts
-export const max: <A>(ord: Ord<A>) => (nea: NonEmptyArray<A>) => A = ...
-```
-
-Added in v2.0.0
-
-# min (constant)
-
-**Signature**
-
-```ts
-export const min: <A>(ord: Ord<A>) => (nea: NonEmptyArray<A>) => A = ...
-```
-
-Added in v2.0.0
-
-# modifyAt (constant)
-
-**Signature**
-
-```ts
-export const modifyAt: <A>(
-  i: number,
-  f: (a: A) => A
-) => (nea: NonEmptyArray<A>) => Option<NonEmptyArray<A>> = ...
 ```
 
 Added in v2.0.0
@@ -381,39 +210,6 @@ assert.deepStrictEqual(snoc([1, 2, 3], 4), [1, 2, 3, 4])
 
 Added in v2.0.0
 
-# sort (constant)
-
-**Signature**
-
-```ts
-export const sort: <A>(O: Ord<A>) => (nea: NonEmptyArray<A>) => NonEmptyArray<A> = ...
-```
-
-Added in v2.0.0
-
-# tail (constant)
-
-**Signature**
-
-```ts
-export const tail: <A>(nea: NonEmptyArray<A>) => Array<A> = ...
-```
-
-Added in v2.0.0
-
-# updateAt (constant)
-
-**Signature**
-
-```ts
-export const updateAt: <A>(
-  i: number,
-  a: A
-) => (nea: NonEmptyArray<A>) => Option<NonEmptyArray<A>> = ...
-```
-
-Added in v2.0.0
-
 # concat (function)
 
 **Signature**
@@ -425,16 +221,6 @@ export function concat<A>(fx: NonEmptyArray<A>, fy: Array<A>): NonEmptyArray<A> 
 
 Added in v2.2.0
 
-# copy (function)
-
-**Signature**
-
-```ts
-export function copy<A>(nea: NonEmptyArray<A>): NonEmptyArray<A> { ... }
-```
-
-Added in v2.0.0
-
 # filter (function)
 
 **Signature**
@@ -444,6 +230,42 @@ export function filter<A, B extends A>(
   refinement: Refinement<A, B>
 ): (nea: NonEmptyArray<A>) => Option<NonEmptyArray<A>>
 export function filter<A>(predicate: Predicate<A>): (nea: NonEmptyArray<A>) => Option<NonEmptyArray<A>> { ... }
+```
+
+Added in v2.0.0
+
+# filterWithIndex (function)
+
+**Signature**
+
+```ts
+export function filterWithIndex<A>(
+  predicate: (i: number, a: A) => boolean
+): (nea: NonEmptyArray<A>) => Option<NonEmptyArray<A>> { ... }
+```
+
+Added in v2.0.0
+
+# fromArray (function)
+
+Builds a `NonEmptyArray` from an `Array` returning `none` if `as` is an empty array
+
+**Signature**
+
+```ts
+export function fromArray<A>(as: Array<A>): Option<NonEmptyArray<A>> { ... }
+```
+
+Added in v2.0.0
+
+# getSemigroup (function)
+
+Builds a `Semigroup` instance for `NonEmptyArray`
+
+**Signature**
+
+```ts
+export function getSemigroup<A = never>(): Semigroup<NonEmptyArray<A>> { ... }
 ```
 
 Added in v2.0.0
@@ -470,6 +292,162 @@ import { cons, group } from 'fp-ts/lib/NonEmptyArray'
 import { ordNumber } from 'fp-ts/lib/Ord'
 
 assert.deepStrictEqual(group(ordNumber)([1, 2, 1, 1]), [cons(1, []), cons(2, []), cons(1, [1])])
+```
+
+Added in v2.0.0
+
+# groupBy (function)
+
+Splits an array into sub-non-empty-arrays stored in an object, based on the result of calling a `string`-returning
+function on each element, and grouping the results according to values returned
+
+**Signature**
+
+```ts
+export function groupBy<A>(f: (a: A) => string): (as: Array<A>) => Record<string, NonEmptyArray<A>> { ... }
+```
+
+**Example**
+
+```ts
+import { cons, groupBy } from 'fp-ts/lib/NonEmptyArray'
+
+assert.deepStrictEqual(groupBy((s: string) => String(s.length))(['foo', 'bar', 'foobar']), {
+  '3': cons('foo', ['bar']),
+  '6': cons('foobar', [])
+})
+```
+
+Added in v2.0.0
+
+# groupSort (function)
+
+Sort and then group the elements of an array into non empty arrays.
+
+**Signature**
+
+```ts
+export function groupSort<A>(O: Ord<A>): (as: Array<A>) => Array<NonEmptyArray<A>> { ... }
+```
+
+**Example**
+
+```ts
+import { cons, groupSort } from 'fp-ts/lib/NonEmptyArray'
+import { ordNumber } from 'fp-ts/lib/Ord'
+
+assert.deepStrictEqual(groupSort(ordNumber)([1, 2, 1, 1]), [cons(1, [1, 1]), cons(2, [])])
+```
+
+Added in v2.0.0
+
+# head (function)
+
+**Signature**
+
+```ts
+export function head<A>(nea: NonEmptyArray<A>): A { ... }
+```
+
+Added in v2.0.0
+
+# init (function)
+
+Get all but the last element of a non empty array, creating a new array.
+
+**Signature**
+
+```ts
+export function init<A>(nea: NonEmptyArray<A>): Array<A> { ... }
+```
+
+**Example**
+
+```ts
+import { init } from 'fp-ts/lib/NonEmptyArray'
+
+assert.deepStrictEqual(init([1, 2, 3]), [1, 2])
+assert.deepStrictEqual(init([1]), [])
+```
+
+Added in v2.2.0
+
+# insertAt (function)
+
+**Signature**
+
+```ts
+export function insertAt<A>(i: number, a: A): (nea: NonEmptyArray<A>) => Option<NonEmptyArray<A>> { ... }
+```
+
+Added in v2.0.0
+
+# last (function)
+
+**Signature**
+
+```ts
+export function last<A>(nea: NonEmptyArray<A>): A { ... }
+```
+
+Added in v2.0.0
+
+# max (function)
+
+**Signature**
+
+```ts
+export function max<A>(ord: Ord<A>): (nea: NonEmptyArray<A>) => A { ... }
+```
+
+Added in v2.0.0
+
+# min (function)
+
+**Signature**
+
+```ts
+export function min<A>(ord: Ord<A>): (nea: NonEmptyArray<A>) => A { ... }
+```
+
+Added in v2.0.0
+
+# modifyAt (function)
+
+**Signature**
+
+```ts
+export function modifyAt<A>(i: number, f: (a: A) => A): (nea: NonEmptyArray<A>) => Option<NonEmptyArray<A>> { ... }
+```
+
+Added in v2.0.0
+
+# sort (function)
+
+**Signature**
+
+```ts
+export function sort<A>(O: Ord<A>): (nea: NonEmptyArray<A>) => NonEmptyArray<A> { ... }
+```
+
+Added in v2.0.0
+
+# tail (function)
+
+**Signature**
+
+```ts
+export function tail<A>(nea: NonEmptyArray<A>): Array<A> { ... }
+```
+
+Added in v2.0.0
+
+# updateAt (function)
+
+**Signature**
+
+```ts
+export function updateAt<A>(i: number, a: A): (nea: NonEmptyArray<A>) => Option<NonEmptyArray<A>> { ... }
 ```
 
 Added in v2.0.0
@@ -559,7 +537,7 @@ Added in v2.0.0
 **Signature**
 
 ```ts
-;<S>(S: Semigroup<S>) => <A>(f: (a: A) => S) => (fa: RNEA.ReadonlyNonEmptyArray<A>) => S
+;<S>(S: Semigroup<S>) => <A>(f: (a: A) => S) => (fa: NonEmptyArray<A>) => S
 ```
 
 Added in v2.0.0
@@ -569,7 +547,7 @@ Added in v2.0.0
 **Signature**
 
 ```ts
-;<S>(S: Semigroup<S>) => <A>(f: (i: number, a: A) => S) => (fa: RNEA.ReadonlyNonEmptyArray<A>) => S
+;<S>(S: Semigroup<S>) => <A>(f: (i: number, a: A) => S) => (fa: NonEmptyArray<A>) => S
 ```
 
 Added in v2.0.0

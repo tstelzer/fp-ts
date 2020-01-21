@@ -1,6 +1,6 @@
 ---
 title: Semigroup.ts
-nav_order: 77
+nav_order: 71
 parent: Modules
 ---
 
@@ -121,7 +121,7 @@ Added in v2.0.0
 **Signature**
 
 ```ts
-export function fold<A>(S: Semigroup<A>): (a: A, as: ReadonlyArray<A>) => A { ... }
+export function fold<A>(S: Semigroup<A>): (a: A, as: Array<A>) => A { ... }
 ```
 
 Added in v2.0.0
@@ -217,7 +217,7 @@ Added in v2.0.0
 **Signature**
 
 ```ts
-export function getStructSemigroup<O extends ReadonlyRecord<string, any>>(
+export function getStructSemigroup<O extends { [key: string]: any }>(
   semigroups: { [K in keyof O]: Semigroup<O[K]> }
 ): Semigroup<O> { ... }
 ```
@@ -231,7 +231,7 @@ Given a tuple of semigroups returns a semigroup for the tuple
 **Signature**
 
 ```ts
-export function getTupleSemigroup<T extends ReadonlyArray<Semigroup<any>>>(
+export function getTupleSemigroup<T extends Array<Semigroup<any>>>(
   ...semigroups: T
 ): Semigroup<{ [K in keyof T]: T[K] extends Semigroup<infer A> ? A : never }> { ... }
 ```

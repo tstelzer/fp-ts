@@ -1,10 +1,17 @@
 ---
 title: Show.ts
-nav_order: 81
+nav_order: 75
 parent: Modules
 ---
 
 # Show overview
+
+The `Show` type class represents those types which can be converted into
+a human-readable `string` representation.
+
+While not required, it is recommended that for any expression `x`, the
+string `show x` be executable TypeScript code which evaluates to the same
+value as the expression `x`.
 
 Added in v2.0.0
 
@@ -27,14 +34,14 @@ The `Show` type class represents those types which can be converted into
 a human-readable `string` representation.
 
 While not required, it is recommended that for any expression `x`, the
-string `show(x)` be executable TypeScript code which evaluates to the same
+string `show x` be executable TypeScript code which evaluates to the same
 value as the expression `x`.
 
 **Signature**
 
 ```ts
 export interface Show<A> {
-  readonly show: (a: A) => string
+  show: (a: A) => string
 }
 ```
 
@@ -75,7 +82,7 @@ Added in v2.0.0
 **Signature**
 
 ```ts
-export function getStructShow<O extends ReadonlyRecord<string, any>>(shows: { [K in keyof O]: Show<O[K]> }): Show<O> { ... }
+export function getStructShow<O extends { [key: string]: any }>(shows: { [K in keyof O]: Show<O[K]> }): Show<O> { ... }
 ```
 
 Added in v2.0.0
@@ -85,7 +92,7 @@ Added in v2.0.0
 **Signature**
 
 ```ts
-export function getTupleShow<T extends ReadonlyArray<Show<any>>>(
+export function getTupleShow<T extends Array<Show<any>>>(
   ...shows: T
 ): Show<{ [K in keyof T]: T[K] extends Show<infer A> ? A : never }> { ... }
 ```

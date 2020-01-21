@@ -1,6 +1,6 @@
 ---
 title: Record.ts
-nav_order: 75
+nav_order: 69
 parent: Modules
 ---
 
@@ -14,24 +14,13 @@ Added in v2.0.0
 
 - [URI (type alias)](#uri-type-alias)
 - [URI (constant)](#uri-constant)
-- [collect (constant)](#collect-constant)
-- [elem (constant)](#elem-constant)
 - [empty (constant)](#empty-constant)
-- [every (constant)](#every-constant)
-- [getShow (constant)](#getshow-constant)
-- [hasOwnProperty (constant)](#hasownproperty-constant)
-- [isEmpty (constant)](#isempty-constant)
-- [isSubrecord (constant)](#issubrecord-constant)
-- [keys (constant)](#keys-constant)
-- [lookup (constant)](#lookup-constant)
-- [modifyAt (constant)](#modifyat-constant)
 - [record (constant)](#record-constant)
-- [singleton (constant)](#singleton-constant)
-- [size (constant)](#size-constant)
-- [some (constant)](#some-constant)
 - [toArray (constant)](#toarray-constant)
-- [updateAt (constant)](#updateat-constant)
+- [collect (function)](#collect-function)
 - [deleteAt (function)](#deleteat-function)
+- [elem (function)](#elem-function)
+- [every (function)](#every-function)
 - [filterMapWithIndex (function)](#filtermapwithindex-function)
 - [filterWithIndex (function)](#filterwithindex-function)
 - [foldMapWithIndex (function)](#foldmapwithindex-function)
@@ -39,18 +28,29 @@ Added in v2.0.0
 - [fromFoldableMap (function)](#fromfoldablemap-function)
 - [getEq (function)](#geteq-function)
 - [getMonoid (function)](#getmonoid-function)
+- [getShow (function)](#getshow-function)
+- [hasOwnProperty (function)](#hasownproperty-function)
 - [insertAt (function)](#insertat-function)
+- [isEmpty (function)](#isempty-function)
+- [isSubrecord (function)](#issubrecord-function)
+- [keys (function)](#keys-function)
+- [lookup (function)](#lookup-function)
 - [map (function)](#map-function)
 - [mapWithIndex (function)](#mapwithindex-function)
+- [modifyAt (function)](#modifyat-function)
 - [partitionMapWithIndex (function)](#partitionmapwithindex-function)
 - [partitionWithIndex (function)](#partitionwithindex-function)
 - [pop (function)](#pop-function)
 - [reduceRightWithIndex (function)](#reducerightwithindex-function)
 - [reduceWithIndex (function)](#reducewithindex-function)
 - [sequence (function)](#sequence-function)
+- [singleton (function)](#singleton-function)
+- [size (function)](#size-function)
+- [some (function)](#some-function)
 - [toUnfoldable (function)](#tounfoldable-function)
 - [traverse (function)](#traverse-function)
 - [traverseWithIndex (function)](#traversewithindex-function)
+- [updateAt (function)](#updateat-function)
 - [compact (export)](#compact-export)
 - [filter (export)](#filter-export)
 - [filterMap (export)](#filtermap-export)
@@ -83,134 +83,12 @@ export const URI: "Record" = ...
 
 Added in v2.0.0
 
-# collect (constant)
-
-Map a record into an array
-
-**Signature**
-
-```ts
-export const collect: <K extends string, A, B>(
-  f: (k: K, a: A) => B
-) => (r: Record<K, A>) => Array<B> = ...
-```
-
-**Example**
-
-```ts
-import { collect } from 'fp-ts/lib/Record'
-
-const x: { a: string; b: boolean } = { a: 'foo', b: false }
-assert.deepStrictEqual(collect((key, val) => ({ key: key, value: val }))(x), [
-  { key: 'a', value: 'foo' },
-  { key: 'b', value: false }
-])
-```
-
-Added in v2.0.0
-
-# elem (constant)
-
-**Signature**
-
-```ts
-export const elem: <A>(E: Eq<A>) => (a: A, fa: Record<string, A>) => boolean = ...
-```
-
-Added in v2.0.0
-
 # empty (constant)
 
 **Signature**
 
 ```ts
 export const empty: Record<string, never> = ...
-```
-
-Added in v2.0.0
-
-# every (constant)
-
-**Signature**
-
-```ts
-export const every: <A>(predicate: Predicate<A>) => (r: Record<string, A>) => boolean = ...
-```
-
-Added in v2.0.0
-
-# getShow (constant)
-
-**Signature**
-
-```ts
-export const getShow: <A>(S: Show<A>) => Show<Record<string, A>> = ...
-```
-
-Added in v2.0.0
-
-# hasOwnProperty (constant)
-
-**Signature**
-
-```ts
-export const hasOwnProperty: <K extends string>(k: string, r: Record<K, unknown>) => k is K = ...
-```
-
-Added in v2.0.0
-
-# isEmpty (constant)
-
-Test whether a record is empty
-
-**Signature**
-
-```ts
-export const isEmpty: (r: Record<string, unknown>) => boolean = ...
-```
-
-Added in v2.0.0
-
-# isSubrecord (constant)
-
-Test whether one record contains all of the keys and values contained in another record
-
-**Signature**
-
-```ts
-export const isSubrecord: <A>(E: Eq<A>) => (x: Record<string, A>, y: Record<string, A>) => boolean = ...
-```
-
-Added in v2.0.0
-
-# keys (constant)
-
-**Signature**
-
-```ts
-export const keys: <K extends string>(r: Record<K, unknown>) => Array<K> = ...
-```
-
-Added in v2.0.0
-
-# lookup (constant)
-
-Lookup the value for a key in a record
-
-**Signature**
-
-```ts
-export const lookup: <A>(k: string, r: Record<string, A>) => Option<A> = ...
-```
-
-Added in v2.0.0
-
-# modifyAt (constant)
-
-**Signature**
-
-```ts
-export const : <A>(k: string, f: (a: A) => A) => <K extends string>(r: Record<K, A>) => Option<Record<K, A>> = ...
 ```
 
 Added in v2.0.0
@@ -231,40 +109,6 @@ export const record: FunctorWithIndex1<URI, string> &
 
 Added in v2.0.0
 
-# singleton (constant)
-
-Create a record with one key/value pair
-
-**Signature**
-
-```ts
-export const singleton: <K extends string, A>(k: K, a: A) => Record<K, A> = ...
-```
-
-Added in v2.0.0
-
-# size (constant)
-
-Calculate the number of key/value pairs in a record
-
-**Signature**
-
-```ts
-export const size: (r: Record<string, unknown>) => number = ...
-```
-
-Added in v2.0.0
-
-# some (constant)
-
-**Signature**
-
-```ts
-export const some: <A>(predicate: (a: A) => boolean) => (r: Record<string, A>) => boolean = ...
-```
-
-Added in v2.0.0
-
 # toArray (constant)
 
 **Signature**
@@ -275,12 +119,26 @@ export const toArray: <K extends string, A>(r: Record<K, A>) => Array<[K, A]> = 
 
 Added in v2.0.0
 
-# updateAt (constant)
+# collect (function)
+
+Map a record into an array
 
 **Signature**
 
 ```ts
-export const updateAt: <A>(k: string, a: A) => <K extends string>(r: Record<K, A>) => Option<Record<K, A>> = ...
+export function collect<K extends string, A, B>(f: (k: K, a: A) => B): (r: Record<K, A>) => Array<B> { ... }
+```
+
+**Example**
+
+```ts
+import { collect } from 'fp-ts/lib/Record'
+
+const x: { a: string; b: boolean } = { a: 'foo', b: false }
+assert.deepStrictEqual(collect((key, val) => ({ key: key, value: val }))(x), [
+  { key: 'a', value: 'foo' },
+  { key: 'b', value: false }
+])
 ```
 
 Added in v2.0.0
@@ -295,6 +153,26 @@ Delete a key and value from a map
 export function deleteAt<K extends string>(
   k: K
 ): <KS extends string, A>(r: Record<KS, A>) => Record<string extends K ? string : Exclude<KS, K>, A> { ... }
+```
+
+Added in v2.0.0
+
+# elem (function)
+
+**Signature**
+
+```ts
+export function elem<A>(E: Eq<A>): (a: A, fa: Record<string, A>) => boolean { ... }
+```
+
+Added in v2.0.0
+
+# every (function)
+
+**Signature**
+
+```ts
+export function every<A>(predicate: Predicate<A>): (r: Record<string, A>) => boolean { ... }
 ```
 
 Added in v2.0.0
@@ -460,6 +338,26 @@ assert.deepStrictEqual(M.concat({ foo: 123 }, { foo: 456 }), { foo: 579 })
 
 Added in v2.0.0
 
+# getShow (function)
+
+**Signature**
+
+```ts
+export function getShow<A>(S: Show<A>): Show<Record<string, A>> { ... }
+```
+
+Added in v2.0.0
+
+# hasOwnProperty (function)
+
+**Signature**
+
+```ts
+export function hasOwnProperty<K extends string>(k: string, r: Record<K, unknown>): k is K { ... }
+```
+
+Added in v2.0.0
+
 # insertAt (function)
 
 Insert or replace a key/value pair in a record
@@ -468,6 +366,52 @@ Insert or replace a key/value pair in a record
 
 ```ts
 export function insertAt<K extends string, A>(k: K, a: A): <KS extends string>(r: Record<KS, A>) => Record<KS | K, A> { ... }
+```
+
+Added in v2.0.0
+
+# isEmpty (function)
+
+Test whether a record is empty
+
+**Signature**
+
+```ts
+export function isEmpty(r: Record<string, unknown>): boolean { ... }
+```
+
+Added in v2.0.0
+
+# isSubrecord (function)
+
+Test whether one record contains all of the keys and values contained in another record
+
+**Signature**
+
+```ts
+export function isSubrecord<A>(E: Eq<A>): (x: Record<string, A>, y: Record<string, A>) => boolean { ... }
+```
+
+Added in v2.0.0
+
+# keys (function)
+
+**Signature**
+
+```ts
+export function keys<K extends string>(r: Record<K, unknown>): Array<K> { ... }
+```
+
+Added in v2.0.0
+
+# lookup (function)
+
+Lookup the value for a key in a record
+
+**Signature**
+
+```ts
+export function lookup<A>(k: string, r: Record<string, A>): Option<A> { ... }
 ```
 
 Added in v2.0.0
@@ -492,6 +436,16 @@ Map a record passing the keys to the iterating function
 
 ```ts
 export function mapWithIndex<K extends string, A, B>(f: (k: K, a: A) => B): (fa: Record<K, A>) => Record<K, B> { ... }
+```
+
+Added in v2.0.0
+
+# modifyAt (function)
+
+**Signature**
+
+```ts
+export function modifyAt<A>(k: string, f: (a: A) => A): <K extends string>(r: Record<K, A>) => Option<Record<K, A>> { ... }
 ```
 
 Added in v2.0.0
@@ -582,6 +536,40 @@ export function sequence<F>(F: Applicative<F>): <K extends string, A>(ta: Record
 
 Added in v2.0.0
 
+# singleton (function)
+
+Create a record with one key/value pair
+
+**Signature**
+
+```ts
+export function singleton<K extends string, A>(k: K, a: A): Record<K, A> { ... }
+```
+
+Added in v2.0.0
+
+# size (function)
+
+Calculate the number of key/value pairs in a record
+
+**Signature**
+
+```ts
+export function size(r: Record<string, unknown>): number { ... }
+```
+
+Added in v2.0.0
+
+# some (function)
+
+**Signature**
+
+```ts
+export function some<A>(predicate: (a: A) => boolean): (r: Record<string, A>) => boolean { ... }
+```
+
+Added in v2.0.0
+
 # toUnfoldable (function)
 
 Unfolds a record into a list of key/value pairs
@@ -590,9 +578,9 @@ Unfolds a record into a list of key/value pairs
 
 ```ts
 export function toUnfoldable<F extends URIS>(
-  U: Unfoldable1<F>
+  unfoldable: Unfoldable1<F>
 ): <K extends string, A>(r: Record<K, A>) => Kind<F, [K, A]>
-export function toUnfoldable<F>(U: Unfoldable<F>): <K extends string, A>(r: Record<K, A>) => HKT<F, [K, A]> { ... }
+export function toUnfoldable<F>(unfoldable: Unfoldable<F>): <K extends string, A>(r: Record<K, A>) => HKT<F, [K, A]> { ... }
 ```
 
 Added in v2.0.0
@@ -651,6 +639,16 @@ export function traverseWithIndex<F extends URIS>(
 export function traverseWithIndex<F>(
   F: Applicative<F>
 ): <K extends string, A, B>(f: (k: K, a: A) => HKT<F, B>) => (ta: Record<K, A>) => HKT<F, Record<K, B>> { ... }
+```
+
+Added in v2.0.0
+
+# updateAt (function)
+
+**Signature**
+
+```ts
+export function updateAt<A>(k: string, a: A): <K extends string>(r: Record<K, A>) => Option<Record<K, A>> { ... }
 ```
 
 Added in v2.0.0

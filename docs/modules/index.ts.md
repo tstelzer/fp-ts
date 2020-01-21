@@ -79,12 +79,6 @@ Added in v2.0.0
 - [readerT (export)](#readert-export)
 - [readerTask (export)](#readertask-export)
 - [readerTaskEither (export)](#readertaskeither-export)
-- [readonlyArray (export)](#readonlyarray-export)
-- [readonlyMap (export)](#readonlymap-export)
-- [readonlyNonEmptyArray (export)](#readonlynonemptyarray-export)
-- [readonlyRecord (export)](#readonlyrecord-export)
-- [readonlySet (export)](#readonlyset-export)
-- [readonlyTuple (export)](#readonlytuple-export)
 - [record (export)](#record-export)
 - [ring (export)](#ring-export)
 - [semigroup (export)](#semigroup-export)
@@ -784,66 +778,6 @@ typeof readerTaskEither
 ```
 
 Added in v2.0.0
-
-# readonlyArray (export)
-
-**Signature**
-
-```ts
-typeof readonlyArray
-```
-
-Added in v2.5.0
-
-# readonlyMap (export)
-
-**Signature**
-
-```ts
-typeof readonlyMap
-```
-
-Added in v2.5.0
-
-# readonlyNonEmptyArray (export)
-
-**Signature**
-
-```ts
-typeof readonlyNonEmptyArray
-```
-
-Added in v2.5.0
-
-# readonlyRecord (export)
-
-**Signature**
-
-```ts
-typeof readonlyRecord
-```
-
-Added in v2.5.0
-
-# readonlySet (export)
-
-**Signature**
-
-```ts
-typeof readonlySet
-```
-
-Added in v2.5.0
-
-# readonlyTuple (export)
-
-**Signature**
-
-```ts
-typeof readonlyTuple
-```
-
-Added in v2.5.0
 
 # record (export)
 
