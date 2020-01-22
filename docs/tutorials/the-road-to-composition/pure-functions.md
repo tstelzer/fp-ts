@@ -1,3 +1,9 @@
+---
+title: Pure functions
+parent: The road to composition
+nav_order: 1
+---
+
 # Pure functions
 
 ## Summary
@@ -165,8 +171,8 @@ Nope. Breaks. The second invocation returns an empty string for the
 
 Fortunately, the solution to fixing our code is quite simple:
 
-1. Define any values the function is working with as parameters.
-2. Treat the inputs as immutable data. That is, instead of changing inputs in
+* Define any values the function is working with as parameters.
+* Treat the inputs as immutable data. That is, instead of changing inputs in
    place, making a copy and returning it.
 
 ```typescript

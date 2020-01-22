@@ -1,3 +1,9 @@
+---
+title: Functions as values
+parent: The road to composition
+nav_order: 2
+---
+
 # Functions as values
 
 ## Summary
@@ -79,7 +85,7 @@ const usersToAdminCard = (users: User[]) => {
 
 We simplified the code without breaking it, great. But. As a fellow acolyte of
 the church of "clean code" your DRY ("don't repeat yourself") senses should be
-tingling. ``usersToSidebarView` and `usersToAdminCard` look eerily similar.
+tingling. `usersToSidebarView` and `usersToAdminCard` look eerily similar.
 In both cases, we're applying a function to elements of our data structure
 (users in an array) and returning a new array with the transformed elements.
 
@@ -111,7 +117,7 @@ assert.deepStrictEqual(mapUserToSidebarView(users), usersToSidebarView(users));
 assert.deepStrictEqual(mapUserToAdminCard(users), usersToAdminCard(users));
 ```
 
->>> NOTE: `map` exists for many data structures (which we will have a look at
+>>> Note: `map` exists for many data structures (which we will have a look at
 in future chapters), but here we're using the `Array` variety.
 
 `map` is very generic, in that it does not really care which function you pass
@@ -168,13 +174,10 @@ comparing the signatures of the original and the mapped functions:
 |------------------------|------------|-------------|
 | f                      | string     | string      |
 | map(f)                 | string[]   | string[]    |
-|------------------------|------------|-------------|
 | g                      | number     | string      |
 | map(g)                 | number[]   | string[]    |
-|------------------------|------------|-------------|
 | userToSidebarView      | User       | User        |
 | map(userToSidebarView) | User[]     | User[]      |
-|------------------------|------------|-------------|
 | userToAdminCard        | User       | User        |
 | map(userToAdminCard)   | User[]     | User[]      |
 
@@ -182,7 +185,7 @@ We say that `map` is "lifting" a function into a different context, here
 specifically the `Array` context, _without having to rewrite the original
 function_.
 
->>> NOTE: Try to build an intuition by replacing any loops in your programs
+>>> Note: Try to build an intuition by replacing any loops in your programs
 meant to iterate over an array with `map`.
 
 Apparently, our apps user base grows. We're up to ten users in total now:
@@ -202,10 +205,9 @@ const users: User[] = [
 ];
 ```
 
-Sales wants us to generate a list of all users that registered in December
-2019. We've just learned that defining our function for the _simple_ case is
-­ well ­ simpler. So let's start there. Let's define a function that
-asserts that a user registered in December 2019:
+Sales wants us to generate a list of all users that registered in December 2019.
+We've just learned that defining our function for the _simple_ case is ­ well ­ simpler.
+So let's start there. Let's define a function that asserts that a user registered in December 2019:
 
 ```typescript
 const didRegisterInDecember2019 = (user: User) =>
@@ -213,9 +215,9 @@ const didRegisterInDecember2019 = (user: User) =>
     new Date(user.registered) <= new Date('2019.12.31');
 ```
 
-Ugh, lots of red flags here (hard coded dates, function still relies on the
-badly formatted user data, etc), but my coffee cup says we're agile, so let's
-verify that we solved the problem at hand:
+Ugh, lots of red flags here; hard coded dates, function still relies on the
+badly formatted user data, etc. pp. But my coffee cup claims we're agile, so
+let's verify that we solved the problem at hand and keep moving:
 
 ```typescript
 assert.strictEqual(didRegisterInDecember2019(users[3]), false);
@@ -224,17 +226,35 @@ assert.strictEqual(didRegisterInDecember2019(users[8]), true);
 assert.strictEqual(didRegisterInDecember2019(users[9]), false);
 ```
 
->>> NOTE: We have defined what is commonly called a "predicate" function.  A
-predicate takes any value and returns a boolean. You probably already know a
-bunch of them. Conventionally predicates are prefixed with `is`, `has`, `did`,
-`was` to signal an assertion about the input value.
+>>> Note: We have defined what is commonly called a "predicate" function.  A
+predicate takes any value and returns a boolean. You have undoutedly used and
+written many already.  Conventionally predicates are prefixed with `is`, `has`,
+`did`, `was` to signal an assertion about the input value.
 
-Nice, onto applying our function to the list! Meet `filter`:
+Nice, onto applying our function to the list! Meet `filter`. Like `map`,
+`filter` is another higher order function. It takes a predicate function and
+returns a function that filters a list using that predicate. In our case, we're
+getting a function that goes through `users` and only leaves those registered
+in December 2019. 
 
 ```typescript
 import * as A from 'fp-ts/lib/Array';
 
 const toSalesView = A.filter(registeredInDec2019);
+```
+
+If we were to write above function by hand, it would look something like:
+
+```typescript
+const toSalesView = (users: User[]) => {
+    const _users = [];
+    for (const user of users) {
+        if (registeredInDec2019(user)) {
+            _users.push(user);
+        }
+    }
+    return _users;
+};
 ```
 
 Again, we can verify that it works:
@@ -250,25 +270,7 @@ assert.deepStrictEqual(toSalesView(users), [
 ]);
 ```
 
-Like `map`, `filter` is another higher order function. It takes a predicate
-function and returns a function that filters a list using that predicate. In
-our case, we're getting a function that goes through `users` and only leaves
-those registered in December 2019. If we were to write the filter by hand, it
-would look something like:
-
-```typescript
-const toSalesView = (users: User[]) => {
-    const _users = [];
-    for (const user of users) {
-        if (registeredInDec2019(user)) {
-            _users.push(user);
-        }
-    }
-    return _users;
-};
-```
-
->>> NOTE: The prolific reader may recognize that `map` and `filter` are
+>>> Note: The prolific reader may recognize that `map` and `filter` are
 built-in methods on the `Array` data structure and may wonder why we aren't
 using those. A great question, which will be answered in the composition
 chapter! Have patience!
