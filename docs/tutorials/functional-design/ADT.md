@@ -1,6 +1,7 @@
 ---
 title: Algebraic Data Types
 parent: Functional design
+grand_parent: Tutorials
 nav_order: 6
 ---
 

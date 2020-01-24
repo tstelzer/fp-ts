@@ -1,6 +1,7 @@
 ---
 title: Introduction to property based testing
 parent: Functional design
+grand_parent: Tutorials
 nav_order: 5
 ---
 

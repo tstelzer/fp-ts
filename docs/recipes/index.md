@@ -2,7 +2,7 @@
 title: Recipes
 permalink: /recipes/
 has_children: true
-nav_order: 5
+nav_order: 6
 has_toc: true
 ---
 

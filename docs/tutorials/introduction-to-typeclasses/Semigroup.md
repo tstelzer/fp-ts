@@ -1,6 +1,7 @@
 ---
 title: Semigroup
-parent: Getting started
+parent: Introduction to typeclasses
+grand_parent: Tutorials
 nav_order: 3
 ---
 

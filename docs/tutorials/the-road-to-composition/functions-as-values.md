@@ -1,6 +1,7 @@
 ---
 title: Functions as values
 parent: The road to composition
+grand_parent: Tutorials
 nav_order: 2
 ---
 

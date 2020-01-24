@@ -1,6 +1,7 @@
 ---
 title: Tagless final
 parent: Functional design
+grand_parent: Tutorials
 nav_order: 3
 ---
 

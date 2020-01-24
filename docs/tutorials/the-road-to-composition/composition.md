@@ -1,6 +1,7 @@
 ---
 title: Composition
 parent: The road to composition
+grand_parent: Tutorials
 nav_order: 4
 ---
 

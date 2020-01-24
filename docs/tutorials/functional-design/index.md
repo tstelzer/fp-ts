@@ -1,8 +1,9 @@
 ---
 title: Functional design
-permalink: /functional-design/
+permalink: /tutorials/functional-design/
+parent: Tutorials
 has_children: true
-nav_order: 3
+nav_order: 5
 has_toc: true
 ---
 

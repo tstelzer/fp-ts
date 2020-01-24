@@ -1,6 +1,7 @@
 ---
 title: Combinators Part II
 parent: Functional design
+grand_parent: Tutorials
 nav_order: 2
 ---
 
