@@ -6,7 +6,3 @@ dev
 .idea
 coverage
 docs-examples
-.jekyll-cache
-.sass-cache
-_site
-vendor
